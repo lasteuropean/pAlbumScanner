@@ -14,7 +14,6 @@ def main():
     dicMerge(dK2, dK)
     printDic1(dK3)
 
-    
 # Scan specified file @param and look for pattern with @function 
 #
 # @param    *args   filename
@@ -40,6 +39,7 @@ def scanThisFile(*args):
 # @param    al any string, presumably a band name
 # @param    sc number between 1 and 15
 # @constant x Maximum used for bounding the equation
+
 def dicAdd(al, sc):
     x = 16
     if al not in dK:
@@ -51,6 +51,7 @@ def dicAdd(al, sc):
 # 
 # @param al     any string, presumably a band name
 # @param nnn    any string, presumably an album name
+
 def dicAdd2(al, nnn):
     if al not in dK2:
         dK2[al] = nnn
@@ -61,6 +62,7 @@ def dicAdd2(al, nnn):
 #
 # @param dn  dK2: reference dictionary     
 # @param ds  dK: score dictionary has final scores
+
 def dicMerge(dn,ds):
     for items in sorted(ds.items()):
         if items[0] in dn:
@@ -68,7 +70,8 @@ def dicMerge(dn,ds):
             
             
 # Prints a formatted view of 
-# @param    dd dictionary            
+# @param    dd dictionary  
+
 def printDic1(dd):        
     for item in sorted(dd.items()):
         print(item[0], ",", item[1])
