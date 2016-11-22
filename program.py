@@ -1,4 +1,3 @@
-# Author: Jason MacChesney
 # A program that scans a text file anticipating lists in the format of [one or two digit numbers][band name] - [album name]
 # and applies a weighted score based on rank, printing a final tally
 
