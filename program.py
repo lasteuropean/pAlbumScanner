@@ -4,9 +4,9 @@
 import re
 
 #dictionaries for 1. @dicAdd,  2. @dicAdd2 3. @dicMerge
-dK = {}
-dK2 = {}
-dK3 = {}
+dK = {} #Band / Score
+dK2 = {} # Band / Album name
+dK3 = {} # Band - Album name / Score
 switcher = {
         1: 15,
         2: 14,
@@ -21,14 +21,13 @@ switcher = {
         11: 5,
         12: 4,
         13: 3,
-        14, 2,
-        15, 1
-    }
+        14: 2,
+        15: 1}
 
 def main():
     scanThisFile('r1.txt')
     dicMerge(dK2, dK)
-    printDic1(dK3)
+    printDic1()
 
 # Scan specified file @param and look for pattern with @function 
 #
@@ -42,11 +41,11 @@ def main():
 def scanThisFile(*args):
     pattern = re.compile(r'(\A\d{1,2})\W*((\w+\W+)*)\W?-((\W?\w+)*)')
 
-    with open(args[0], encoding = "ISO-8859-1") as f:
+    with open(args[0], encoding = 'ISO-8859-1') as f:
         for line in f:
             match = re.search(pattern, line)
             if match:
-                dicAdd(match.group(2).lower(),(int(match.group(1))))
+                dicAddStraightLine(match.group(2).lower(),(int(match.group(1))))
                 dicAdd2(match.group(2).lower(), match.group(4).lower())
 
 
@@ -64,22 +63,16 @@ def dicAdd(al, sc):
         dK[al] += (sc * (((sc + x)*(x-sc))/(x * sc)))
         
 def dicAddStraightLine(al, sc):
-    if al not in dK:
-        dK[al] = convertscore(sc)
-    else:
-        dK[al] += convertscore(sc)
-        
-
-def convertscore(sc):
-    for items in switcher:
-        if item[0] = sc:
-            return item[1]
-        
+    if sc < 16:
+        if al not in dK:
+            dK[al] = switcher[sc] #Instantiate Dict Entry
+        else:
+            dK[al] += switcher[sc]
+            
 # Build dK2; pairing a key with the data in the final column
 # 
 # @param al     any string, presumably a band name
 # @param nnn    any string, presumably an album name
-
 def dicAdd2(al, nnn):
     if al not in dK2:
         dK2[al] = nnn
@@ -95,13 +88,11 @@ def dicMerge(dn,ds):
     for items in sorted(ds.items()):
         if items[0] in dn:
             dK3[items[0] + str(dn[items[0]])] = items[1]
-            
-            
+                      
 # Prints a formatted view of 
 # @param    dd dictionary  
-
-def printDic1(dd):        
-    for item in sorted(dd.items()):
-        print(item[0], ",", item[1])
+def printDic1():        
+    for item in sorted(dK3.items()):
+        print(item[0], ',', item[1])
         
-if __name__ == "__main__": main()
+if __name__ == '__main__': main()
