@@ -7,6 +7,23 @@ import re
 dK = {}
 dK2 = {}
 dK3 = {}
+switcher = {
+        1: 15,
+        2: 14,
+        3: 13,
+        4: 12,
+        5: 11,
+        6: 10,
+        7: 9,
+        8: 8,
+        9: 7,
+        10: 6,
+        11: 5,
+        12: 4,
+        13: 3,
+        14, 2,
+        15, 1
+    }
 
 def main():
     scanThisFile('r1.txt')
@@ -45,7 +62,19 @@ def dicAdd(al, sc):
         dK[al] = ((sc * ((sc + x)*(x-sc))/(x * sc)))
     else:
         dK[al] += (sc * (((sc + x)*(x-sc))/(x * sc)))
+        
+def dicAddStraightLine(al, sc):
+    if al not in dK:
+        dK[al] = convertscore(sc)
+    else:
+        dK[al] += convertscore(sc)
+        
 
+def convertscore(sc):
+    for items in switcher:
+        if item[0] = sc:
+            return item[1]
+        
 # Build dK2; pairing a key with the data in the final column
 # 
 # @param al     any string, presumably a band name
